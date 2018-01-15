@@ -1,0 +1,23 @@
+# Build & distribution
+__pycache__/
+*.mo
+*.py[cod]
+*.egg
+*.egg-info
+build/
+dist/
+
+# virtualenv
+env/
+venv/
+
+# test
+.cache/
+
+# editors & OS
+*.sublime-*
+.tm_properties
+.idea/
+.vscode/
+*.DS_Store
+.*.swp

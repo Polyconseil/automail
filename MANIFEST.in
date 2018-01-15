@@ -1,0 +1,8 @@
+include LICENSE README.md
+
+graft src
+
+prune docs
+prune tests
+
+global-exclude *.py[cod] __pycache__ *.so .DS_Store *.*.swp
