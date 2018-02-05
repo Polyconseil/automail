@@ -4,19 +4,16 @@ import re
 import unidecode
 
 
-def variants(*strings):
-    """Given input strings, returns a generator yielding unidecoded lower versions of them
-    """
-    for string in strings:
-        if not string:
-            continue
-        yield unidecode.unidecode(string.lower()).strip()
+def normalize(string):
+    string = unidecode.unidecode(string.lower()).strip()
+    string = re.sub(r'[\[\]\(,;:.\|/\\]+', r' ', string)
+    string = re.sub(r'([^\s]+)[\s]+', r'\1 ', string)
+    return ' '.join(s for s in string.split(' ') if s)
 
 
-def re_variants(*strings):
-    """Given input strings, returns a regular expression matching any of them with correct escaping
-    """
-    return '|'.join(
-        re.escape(string)
-        for string in strings if string
-        )
+def consume_re(regex, string):
+    match = regex.search(string)
+    if match:
+        span = match.span()
+        return match.groups()[-1].strip(), string[:span[0]] + string[span[1]:]
+    return None, string
